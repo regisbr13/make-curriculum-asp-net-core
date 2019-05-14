@@ -1,6 +1,6 @@
 using System;
 
-namespace Curriculum.Models
+namespace MakeCurriculum.Models
 {
     public class ErrorViewModel
     {
