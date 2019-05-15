@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MakeCurriculum.Models
@@ -7,10 +8,10 @@ namespace MakeCurriculum.Models
     {
         public int Id { get; set; }
 
+        [Remote("UserExist", "Users")]
         [Required(ErrorMessage ="campo obrigatório")]
         [StringLength(50, ErrorMessage ="use até {1} caracteres")]
         [EmailAddress(ErrorMessage ="email inválido")]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "campo obrigatório")]

@@ -27,7 +27,7 @@ namespace MakeCurriculum.Models
         public int EndYear { get; set; }
 
         [Required(ErrorMessage = "campo obrigatório")]
-        [StringLength(100, ErrorMessage = "use até {1} caracteres")]
+        [StringLength(500, ErrorMessage = "use até {1} caracteres")]
         [DataType(DataType.MultilineText)]
         public string Activities { get; set; }
 
