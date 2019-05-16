@@ -1,8 +1,65 @@
 ﻿@model IEnumerable<MakeCurriculum.Models.Curriculum>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Currículos Cadastrados";
 }
 
+<h2 class="text-info text-center">Currículos cadastrados</h2>
+<hr />
+<p>
+    <a class="btn btn-primary btn-sm create">Cadastrar novo</a>
+</p>
 
-<h1>Currículos</h1>
+<table class=" table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id"><i class="glyphicon glyphicon-info-sign btn btn-primary btn-sm"></i></a>
+                    <a class="edit" data-id="@item.Id"><i class="glyphicon glyphicon-edit btn btn-warning btn-sm"></i></a>
+                    <a class="delete" data-id="@item.Id"><i class="glyphicon glyphicon-trash btn btn-danger btn-sm"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_Create" model="new Curriculum()" />
+
+<div class="modal fade" id="modal" role="dialog"></div>
+
+    @section Scripts{
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+            $(function () {
+                $(".create").click(function () {
+                        $("#modalCreate").modal();
+                })
+            });
+
+            $(function () {
+                $(".edit").click(function () {
+                    var id = $(this).attr("data-id");
+                    $("#modal").load("Edit?Id=" + id, function () {
+                        $("#modal").modal();
+                    })
+                })
+            });
+            $(function () {
+                $(".delete").click(function () {
+                    var id = $(this).attr("data-id");
+                    $("#modal").load("Delete?Id=" + id, function () {
+                        $("#modal").modal();
+                    })
+                })
+            });
+        </script>
+    }

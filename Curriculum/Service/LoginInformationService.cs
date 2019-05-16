@@ -1,5 +1,6 @@
 ﻿using MakeCurriculum.Data;
 using MakeCurriculum.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,11 @@ namespace MakeCurriculum.Service
         {
             _context.Add(obj);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<LoginInformation>> LoginInformationByUserId(int? id)
+        {
+            return await _context.LoginInformations.Include(li => li.User).Where(li => li.UserId == id).ToListAsync();
         }
     }
 }

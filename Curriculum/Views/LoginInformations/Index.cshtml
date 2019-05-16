@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MakeCurriculum.Models.LoginInformation>
+
+@{
+    ViewData["Title"] = "Informações de login";
+}
+
+<h2 class="text-info text-center">Informações de login</h2>
+<hr />
+<p>
+    <a asp-action="DataDownload" class="btn btn-primary btn-sm">Exportar para Excel</a>
+</p>
+
+<table class=" table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Endereço IP</th>
+            <th>Data de login</th>
+            <th>Horário de login</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Ip)</td>
+            <td>@item.LoginDate.ToShortDateString()</td>
+            <td>@item.LoginDate.ToShortTimeString()</td>
+        </tr>
+        }
+    </tbody>
+</table>
+

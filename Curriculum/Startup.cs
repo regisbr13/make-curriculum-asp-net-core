@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using MakeCurriculum.Data;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,11 +60,20 @@ namespace MakeCurriculum
             services.AddScoped<UserService>();
 
             services.AddScoped<LoginInformationService>();
+
+            services.AddScoped<ObjectiveService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var ptBR = new CultureInfo("pt-BR");
+            var localOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(ptBR),
+                SupportedCultures = new List<CultureInfo> { ptBR },             // lista de idiomas suportados
+                SupportedUICultures = new List<CultureInfo> { ptBR }
+            };
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceProvider>().CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<Context>();
@@ -79,6 +90,7 @@ namespace MakeCurriculum
                 app.UseHsts();
             }
 
+            app.UseRequestLocalization(localOptions);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

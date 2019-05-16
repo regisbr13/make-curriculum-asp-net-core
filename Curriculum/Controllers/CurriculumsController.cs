@@ -1,5 +1,6 @@
 ﻿using MakeCurriculum.Models;
 using MakeCurriculum.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace MakeCurriculum.Controllers
     public class CurriculumsController : Controller
     {
         private readonly CurriculumService _curriculumService;
+        private readonly ObjectiveService _objectiveService;
 
-        public CurriculumsController(CurriculumService curriculumService)
+        public CurriculumsController(CurriculumService curriculumService, ObjectiveService objectiveService)
         {
             _curriculumService = curriculumService;
+            _objectiveService = objectiveService;
         }
 
         // GET:
@@ -36,7 +39,7 @@ namespace MakeCurriculum.Controllers
             {
                 return NotFound();
             }
-
+            obj.Objectives = await _objectiveService.FindByCurriculumId(id);
             return View(obj);
         }
 
@@ -51,6 +54,7 @@ namespace MakeCurriculum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Curriculum obj)
         {
+            obj.UserId = int.Parse(HttpContext.Session.GetInt32("UserId").ToString());
             if (ModelState.IsValid)
             {
                 await _curriculumService.InsertAsync(obj);
@@ -80,6 +84,7 @@ namespace MakeCurriculum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Curriculum obj)
         {
+            obj.UserId = int.Parse(HttpContext.Session.GetInt32("UserId").ToString());
             if (id != obj.Id)
             {
                 return NotFound();

@@ -6,6 +6,7 @@ namespace MakeCurriculum.Models
     {
         public int Id { get; set; }
 
+        [Display(Name ="Descrição")]
         [Required(ErrorMessage ="descrição obrigatória")]
         [StringLength(1000, ErrorMessage ="use até {1} caracteres")]
         [DataType(DataType.MultilineText)]

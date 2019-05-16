@@ -1,0 +1,58 @@
+﻿@using MakeCurriculum.Models.ViewModels
+@model MakeCurriculum.Models.Curriculum
+
+@{
+    ViewData["Title"] = "Currículo " + Model.Name;
+}
+
+<h2 class="text-info text-center">Novo currículo</h2>
+<hr />
+<p>
+    <a class="btn btn-primary btn-sm create">PDF</a>
+</p>
+
+<div class="container">
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="h3">
+                            <span class="glyphicon glyphicon-screenshot"></span> Objetivos
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <partial name="_Objectives" model="Model.Objectives" />
+                        <partial name="_CreateObjective" model="@new ObjectiveViewModel() {Curriculum = Model, Objective = new Objective()}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" role="dialog"></div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            $(".editObj").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Objectives/Edit?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+        $(function () {
+            $(".deleteObj").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Objectives/Delete?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+    </script>
+}
