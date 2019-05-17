@@ -1,0 +1,19 @@
+﻿@model ICollection<MakeCurriculum.Models.Language>
+
+    <ul>
+        @foreach (var item in Model)
+        {
+        <div class="row">
+            <li class="h4 list-group">
+                <div class="col-md-10 col-sm-8 col-xs-6">
+                    <strong>@item.Name</strong> -  @item.Level
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6">
+                    <a class="editLang" data-id="@item.Id"><i class="glyphicon glyphicon-edit btn btn-warning btn-sm"></i></a>
+                    <a class="deleteLang" data-id="@item.Id"><i class="glyphicon glyphicon-trash btn btn-danger btn-sm"></i></a>
+                </div>
+            </li>
+        </div>
+            <hr />
+        }
+    </ul>

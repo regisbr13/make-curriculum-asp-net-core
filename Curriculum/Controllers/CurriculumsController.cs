@@ -17,14 +17,16 @@ namespace MakeCurriculum.Controllers
         private readonly CoursesTypeService _coursesService;
         private readonly AcademicService _academicService;
         private readonly ProfessionalExpService _expService;
+        private readonly LanguageService _languageService;
 
-        public CurriculumsController(CurriculumService curriculumService, ObjectiveService objectiveService, CoursesTypeService coursesService, AcademicService academicService, ProfessionalExpService expService)
+        public CurriculumsController(CurriculumService curriculumService, ObjectiveService objectiveService, CoursesTypeService coursesService, AcademicService academicService, ProfessionalExpService expService, LanguageService languageService)
         {
             _curriculumService = curriculumService;
             _objectiveService = objectiveService;
             _coursesService = coursesService;
             _academicService = academicService;
             _expService = expService;
+            _languageService = languageService;
         }
 
         // GET:
@@ -49,6 +51,7 @@ namespace MakeCurriculum.Controllers
             obj.Objectives = await _objectiveService.FindByCurriculumId(id);
             obj.Academics = await _academicService.FindByCurriculumId(id);
             obj.ProfessionalExps = await _expService.FindByCurriculumId(id);
+            obj.Languages = await _languageService.FindByCurriculumId(id);
             ViewBag.items = new SelectList(await _coursesService.FindAllAsync(), "Id", "Type");
             return View(obj);
         }

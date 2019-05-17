@@ -12,6 +12,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Languages\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Languages\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Curriculums\_Langs.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Curriculums\_CreateLang.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\ProfessionalExps\Delete.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

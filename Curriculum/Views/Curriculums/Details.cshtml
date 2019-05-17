@@ -77,6 +77,28 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="h3">
+                            <span class="glyphicon glyphicon-globe"></span> Idiomas
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <partial name="_Langs" model="Model.Languages" />
+                        <partial name="_CreateLang" model="@new LanguageViewModel() {Curriculum = Model, Language = new Language()}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modal" role="dialog"></div>
 
 @section Scripts{
@@ -128,6 +150,23 @@
             $(".deleteExp").click(function () {
                 var id = $(this).attr("data-id");
                 $("#modal").load("/ProfessionalExps/Delete?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+
+        $(function () {
+            $(".editLang").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Languages/Edit?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+        $(function () {
+            $(".deleteLang").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Languages/Delete?Id=" + id, function () {
                     $("#modal").modal();
                 })
             })
