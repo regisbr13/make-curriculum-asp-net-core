@@ -1,0 +1,36 @@
+﻿@model MakeCurriculum.Models.ViewModels.ProfessionalExpViewModel
+
+<h4 class="text-info text-center">Nova Experiência Profissional</h4>
+<div class="col-md-6 col-md-offset-3">
+    <form asp-action="Create" asp-controller="ProfessionalExps" method="post">
+        <div class="form-group">
+            <label asp-for="ProfessionalExp.Company" class="control-label"></label>
+            <input asp-for="ProfessionalExp.Company" class="form-control" />
+            <span asp-validation-for="ProfessionalExp.Company" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProfessionalExp.Role" class="control-label"></label>
+            <input asp-for="ProfessionalExp.Role" class="form-control" />
+            <span asp-validation-for="ProfessionalExp.Role" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProfessionalExp.StartYear" class="control-label"></label>
+            <input asp-for="ProfessionalExp.StartYear" class="form-control" value="" />
+            <span asp-validation-for="ProfessionalExp.StartYear" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProfessionalExp.EndYear" class="control-label"></label>
+            <input asp-for="ProfessionalExp.EndYear" class="form-control" value="" />
+            <span asp-validation-for="ProfessionalExp.EndYear" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProfessionalExp.Activities" class="control-label"></label>
+            <textarea asp-for="ProfessionalExp.Activities" class="form-control"></textarea>
+            <span asp-validation-for="ProfessionalExp.Activities" class="text-danger"></span>
+        </div>
+        <div class="form-group text-right">
+            <input asp-for="ProfessionalExp.CurriculumId" value="@Model.Curriculum.Id" type="hidden" />
+            <button type="submit" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-ok"></i> Salvar</button>
+        </div>
+    </form>
+</div>

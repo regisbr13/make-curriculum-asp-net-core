@@ -22,10 +22,54 @@
                         </a>
                     </h4>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse in">
+                <div id="collapseOne" class="panel-collapse collapse">
                     <div class="panel-body">
                         <partial name="_Objectives" model="Model.Objectives" />
                         <partial name="_CreateObjective" model="@new ObjectiveViewModel() {Curriculum = Model, Objective = new Objective()}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="h3">
+                            <span class="glyphicon glyphicon-education"></span> Formação Acadêmica
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <partial name="_Academics" model="Model.Academics" />
+                        <partial name="_CreateAcademic" model="@new AcademicViewModel() {Curriculum = Model, Academic = new Academic()}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="h3">
+                            <span class="glyphicon glyphicon-briefcase"></span> Experiências Profissionais
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <partial name="_Exps" model="Model.ProfessionalExps" />
+                        <partial name="_CreateExp" model="@new ProfessionalExpViewModel() {Curriculum = Model, ProfessionalExp = new ProfessionalExp()}" />
                     </div>
                 </div>
             </div>
@@ -50,6 +94,40 @@
             $(".deleteObj").click(function () {
                 var id = $(this).attr("data-id");
                 $("#modal").load("/Objectives/Delete?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+
+        $(function () {
+            $(".editAcad").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Academics/Edit?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+        $(function () {
+            $(".deleteAcad").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Academics/Delete?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+
+        $(function () {
+            $(".editExp").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/ProfessionalExps/Edit?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+        $(function () {
+            $(".deleteExp").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/ProfessionalExps/Delete?Id=" + id, function () {
                     $("#modal").modal();
                 })
             })

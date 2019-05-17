@@ -13,6 +13,7 @@ namespace MakeCurriculum.Data
         public DbSet<Academic> Academics { get; set; }
         public DbSet<Objective> Objectives { get; set; }
         public DbSet<LoginInformation> LoginInformations { get; set; }
+        public DbSet<ProfessionalExp> ProfessionalExps { get; set; }
 
 
         public Context(DbContextOptions<Context> options) : base(options)

@@ -62,6 +62,12 @@ namespace MakeCurriculum
             services.AddScoped<LoginInformationService>();
 
             services.AddScoped<ObjectiveService>();
+
+            services.AddScoped<AcademicService>();
+
+            services.AddScoped<CoursesTypeService>();
+
+            services.AddScoped<ProfessionalExpService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

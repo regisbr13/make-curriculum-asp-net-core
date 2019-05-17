@@ -1,0 +1,36 @@
+﻿@model MakeCurriculum.Models.ViewModels.AcademicViewModel
+
+<h4 class="text-info text-center">Nova Formação Acadêmica</h4>
+<div class="col-md-6 col-md-offset-3">
+    <form asp-action="Create" asp-controller="Academics" method="post">
+        <div class="form-group">
+            <label asp-for="Academic.CoursesType" class="control-label"></label>
+            <select asp-for="Academic.CoursesTypeId" class="form-control" asp-items="@ViewBag.items"></select>
+            <span asp-validation-for="Academic.CoursesTypeId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Academic.CourseName" class="control-label"></label>
+            <input asp-for="Academic.CourseName" class="form-control" />
+            <span asp-validation-for="Academic.CourseName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Academic.Institution" class="control-label"></label>
+            <input asp-for="Academic.Institution" class="form-control" />
+            <span asp-validation-for="Academic.Institution" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Academic.StartYear" class="control-label"></label>
+            <input asp-for="Academic.StartYear" class="form-control" value="" />
+            <span asp-validation-for="Academic.StartYear" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Academic.EndYear" class="control-label"></label>
+            <input asp-for="Academic.EndYear" class="form-control" value="" />
+            <span asp-validation-for="Academic.EndYear" class="text-danger"></span>
+        </div>
+        <div class="form-group text-right">
+            <input asp-for="Academic.CurriculumId" value="@Model.Curriculum.Id" type="hidden" />
+            <button type="submit" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-ok"></i> Salvar</button>
+        </div>
+    </form>
+</div>

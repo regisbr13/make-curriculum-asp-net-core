@@ -2,6 +2,7 @@
 using MakeCurriculum.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,17 @@ namespace MakeCurriculum.Controllers
     {
         private readonly CurriculumService _curriculumService;
         private readonly ObjectiveService _objectiveService;
+        private readonly CoursesTypeService _coursesService;
+        private readonly AcademicService _academicService;
+        private readonly ProfessionalExpService _expService;
 
-        public CurriculumsController(CurriculumService curriculumService, ObjectiveService objectiveService)
+        public CurriculumsController(CurriculumService curriculumService, ObjectiveService objectiveService, CoursesTypeService coursesService, AcademicService academicService, ProfessionalExpService expService)
         {
             _curriculumService = curriculumService;
             _objectiveService = objectiveService;
+            _coursesService = coursesService;
+            _academicService = academicService;
+            _expService = expService;
         }
 
         // GET:
@@ -40,6 +47,9 @@ namespace MakeCurriculum.Controllers
                 return NotFound();
             }
             obj.Objectives = await _objectiveService.FindByCurriculumId(id);
+            obj.Academics = await _academicService.FindByCurriculumId(id);
+            obj.ProfessionalExps = await _expService.FindByCurriculumId(id);
+            ViewBag.items = new SelectList(await _coursesService.FindAllAsync(), "Id", "Type");
             return View(obj);
         }
 

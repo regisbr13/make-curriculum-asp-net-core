@@ -1,4 +1,4 @@
-﻿@model MakeCurriculum.Models.Objective
+﻿@model MakeCurriculum.Models.ProfessionalExp
 
 @{
     Layout = null;
@@ -7,12 +7,13 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title text-center">Excluir objetivo</h4>
+            <h4 class="modal-title text-center">Excluir Experiência Profissional</h4>
         </div>
         <form asp-action="Delete">
             <div class="modal-body">
-                <p>Confirmar a exclusão do objetivo?</p>
-                <p><strong>@Model.Description</strong></p>
+                <p>Confirmar a exclusão da experência?</p>
+                <strong>@Model.Role</strong> - @Model.Company, @Model.StartYear a @Model.EndYear
+                <p class="h5">@Model.Activities</p>               
                 <div class="form-horizontal">
                     <input type="hidden" asp-for="Id" />
                 </div>
