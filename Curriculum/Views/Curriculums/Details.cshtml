@@ -5,10 +5,10 @@
     ViewData["Title"] = "Currículo " + Model.Name;
 }
 
-<h2 class="text-info text-center">Novo currículo</h2>
+<h2 class="text-info text-center">@Model.Name</h2>
 <hr />
 <p>
-    <a class="btn btn-primary btn-sm create">PDF</a>
+    <a asp-action="ViewPdf" asp-route-id="@Model.Id" class="btn btn-primary btn-sm create">PDF</a>
 </p>
 
 <div class="container">
@@ -17,15 +17,50 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseZero" class="h3">
+                            <span class="glyphicon glyphicon-user"></span> Dados Pessoais
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseZero" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @if (Model.PersonalData != null)
+                        {
+                            <partial name="_PersonalData" model="Model.PersonalData" />
+                        }
+                        else
+                        {
+                            <partial name="_CreatePersonalData" model="@new FormViewModel() {Curriculum = Model, PersonalData = new PersonalData()}" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="h3">
-                            <span class="glyphicon glyphicon-screenshot"></span> Objetivos
+                            <span class="glyphicon glyphicon-pencil"></span> Resumo
                         </a>
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <partial name="_Objectives" model="Model.Objectives" />
-                        <partial name="_CreateObjective" model="@new ObjectiveViewModel() {Curriculum = Model, Objective = new Objective()}" />
+                        @if (Model.Resume != null)
+                        {
+                            <partial name="_Resume" model="Model.Resume" />
+                        }
+                        else
+                        {
+                            <partial name="_CreateResume" model="@new FormViewModel() {Curriculum = Model, Resume = new Resume()}" />
+                        }
                     </div>
                 </div>
             </div>
@@ -40,14 +75,14 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="h3">
-                            <span class="glyphicon glyphicon-education"></span> Formação Acadêmica
+                            <span class="glyphicon glyphicon-screenshot"></span> Objetivos
                         </a>
                     </h4>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <partial name="_Academics" model="Model.Academics" />
-                        <partial name="_CreateAcademic" model="@new AcademicViewModel() {Curriculum = Model, Academic = new Academic()}" />
+                        <partial name="_Objectives" model="Model.Objectives" />
+                        <partial name="_CreateObjective" model="@new FormViewModel() {Curriculum = Model, Objective = new Objective()}" />
                     </div>
                 </div>
             </div>
@@ -62,14 +97,14 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="h3">
-                            <span class="glyphicon glyphicon-briefcase"></span> Experiências Profissionais
+                            <span class="glyphicon glyphicon-education"></span> Formação Acadêmica
                         </a>
                     </h4>
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <partial name="_Exps" model="Model.ProfessionalExps" />
-                        <partial name="_CreateExp" model="@new ProfessionalExpViewModel() {Curriculum = Model, ProfessionalExp = new ProfessionalExp()}" />
+                        <partial name="_Academics" model="Model.Academics" />
+                        <partial name="_CreateAcademic" model="@new FormViewModel() {Curriculum = Model, Academic = new Academic()}" />
                     </div>
                 </div>
             </div>
@@ -84,14 +119,58 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="h3">
-                            <span class="glyphicon glyphicon-globe"></span> Idiomas
+                            <span class="glyphicon glyphicon-briefcase"></span> Experiências Profissionais
                         </a>
                     </h4>
                 </div>
                 <div id="collapseFour" class="panel-collapse collapse">
                     <div class="panel-body">
+                        <partial name="_Exps" model="Model.ProfessionalExps" />
+                        <partial name="_CreateExp" model="@new FormViewModel() {Curriculum = Model, ProfessionalExp = new ProfessionalExp()}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" class="h3">
+                            <span class="glyphicon glyphicon-globe"></span> Idiomas
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="panel-body">
                         <partial name="_Langs" model="Model.Languages" />
-                        <partial name="_CreateLang" model="@new LanguageViewModel() {Curriculum = Model, Language = new Language()}" />
+                        <partial name="_CreateLang" model="@new FormViewModel() {Curriculum = Model, Language = new Language()}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" class="h3">
+                            <span class="glyphicon glyphicon-list"></span> Atividades Extracurriculares
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseSix" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <partial name="_ExtraActivities" model="Model.ExtraActivities" />
+                        <partial name="_CreateExtraActivity" model="@new FormViewModel() {Curriculum = Model, ExtraActivity = new ExtraActivity()}" />
                     </div>
                 </div>
             </div>
@@ -167,6 +246,57 @@
             $(".deleteLang").click(function () {
                 var id = $(this).attr("data-id");
                 $("#modal").load("/Languages/Delete?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+
+        $(function () {
+            $(".editPers").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/PersonalData/Edit?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+        $(function () {
+            $(".deletePers").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/PersonalData/Delete?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+
+        $(function () {
+            $(".editResu").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Resumes/Edit?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+        $(function () {
+            $(".deleteResu").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Resumes/Delete?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+
+        $(function () {
+            $(".editExtra").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/ExtraActivities/Edit?Id=" + id, function () {
+                    $("#modal").modal();
+                })
+            })
+        });
+        $(function () {
+            $(".deleteExtra").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/ExtraActivities/Delete?Id=" + id, function () {
                     $("#modal").modal();
                 })
             })

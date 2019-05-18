@@ -8,40 +8,40 @@ using System.Threading.Tasks;
 
 namespace MakeCurriculum.Service
 {
-    public class AcademicService
+    public class PersonalDataService
     {
         private readonly Context _context;
 
-        public AcademicService(Context context)
+        public PersonalDataService(Context context)
         {
             _context = context;
         }
 
-        public async Task InsertAsync(Academic obj)
+        public async Task InsertAsync(PersonalData obj)
         {
-            _context.Academics.Add(obj);
+            _context.PersonalDatas.Add(obj);
             await _context.SaveChangesAsync();
         }
 
         // REMOVER:
         public async Task RemoveAsync(int id)
         {
-            var obj = await _context.Academics.FindAsync(id);
+            var obj = await _context.PersonalDatas.FindAsync(id);
             _context.Remove(obj);
             await _context.SaveChangesAsync();
         }
 
         // Buscar por Id:
-        public async Task<Academic> FindByIdAsync(int? id)
+        public async Task<PersonalData> FindByIdAsync(int? id)
         {
-            return await _context.Academics.Include(o => o.CoursesType).FirstOrDefaultAsync(o => o.Id == id);
+            return await _context.PersonalDatas.FirstOrDefaultAsync(o => o.Id == id);
         }
 
 
         // Atualizar:
-        public async Task UpdateAsync(Academic obj)
+        public async Task UpdateAsync(PersonalData obj)
         {
-            bool hasAny = await _context.Academics.AnyAsync(o => o.Id == obj.Id);
+            bool hasAny = await _context.PersonalDatas.AnyAsync(o => o.Id == obj.Id);
             if (!hasAny)
             {
                 throw new Exception("not found");

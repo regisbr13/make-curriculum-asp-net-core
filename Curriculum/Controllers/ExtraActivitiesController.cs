@@ -1,32 +1,29 @@
 ﻿using MakeCurriculum.Models;
 using MakeCurriculum.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MakeCurriculum.Controllers
 {
-    public class LanguagesController : Controller
+    public class ExtraActivitiesController : Controller
     {
-        private readonly LanguageService _languageService;
+        private readonly ExtraActivityService _extraActivityService;
 
-        public LanguagesController(LanguageService languageService)
+        public ExtraActivitiesController(ExtraActivityService extraActivityService)
         {
-            _languageService = languageService;
+            _extraActivityService = extraActivityService;
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind(Prefix = "Language")] Language obj)
+        public async Task<IActionResult> Create([Bind(Prefix = "ExtraActivity")] ExtraActivity obj)
         {
             if (ModelState.IsValid)
             {
-                await _languageService.InsertAsync(obj);
+                await _extraActivityService.InsertAsync(obj);
                 return RedirectToRoute(new { controller = "Curriculums", action = "Details", id = obj.CurriculumId });
             }
-            return RedirectToRoute(new { controller = "Curriculums", action = "Details", id = obj.CurriculumId });
+            return View("Error");
         }
 
         // DELETE GET:
@@ -37,7 +34,7 @@ namespace MakeCurriculum.Controllers
                 return NotFound();
             }
 
-            var obj = await _languageService.FindByIdAsync(id);
+            var obj = await _extraActivityService.FindByIdAsync(id);
             TempData["id"] = obj.CurriculumId;
             if (obj == null)
             {
@@ -52,7 +49,7 @@ namespace MakeCurriculum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _languageService.RemoveAsync(id);
+            await _extraActivityService.RemoveAsync(id);
             return RedirectToRoute(new { controller = "Curriculums", action = "Details", id = TempData["id"] });
         }
 
@@ -64,7 +61,7 @@ namespace MakeCurriculum.Controllers
                 return NotFound();
             }
 
-            var obj = await _languageService.FindByIdAsync(id);
+            var obj = await _extraActivityService.FindByIdAsync(id);
             TempData["id"] = obj.CurriculumId;
             if (obj == null)
             {
@@ -76,7 +73,7 @@ namespace MakeCurriculum.Controllers
         // Post:
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Language obj)
+        public async Task<IActionResult> Edit(int id, ExtraActivity obj)
         {
             if (id != obj.Id)
             {
@@ -85,17 +82,10 @@ namespace MakeCurriculum.Controllers
 
             if (ModelState.IsValid)
             {
-                await _languageService.UpdateAsync(obj);
+                await _extraActivityService.UpdateAsync(obj);
                 return RedirectToRoute(new { controller = "Curriculums", action = "Details", id = TempData["id"] });
             }
             return View(obj);
-        }
-
-        public async Task<JsonResult> LanguageExist([Bind(Prefix = "Language")] Language obj)
-        {
-            if (await _languageService.NameExists(obj.Name))
-                return Json("idioma já cadastrado");
-            return Json(true);
         }
     }
 }

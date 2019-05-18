@@ -1,0 +1,21 @@
+﻿@model MakeCurriculum.Models.ViewModels.FormViewModel
+
+<h4 class="text-info text-center">Nova Atividade Extracurricular</h4>
+<div class="col-md-6 col-md-offset-3">
+    <form asp-action="Create" asp-controller="ExtraActivities" method="post">
+        <div class="form-group">
+            <label asp-for="ExtraActivity.CourseName" class="control-label"></label>
+            <input asp-for="ExtraActivity.CourseName" class="form-control" />
+            <span asp-validation-for="ExtraActivity.CourseName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ExtraActivity.Info" class="control-label"></label>
+            <input asp-for="ExtraActivity.Info" class="form-control" />
+            <span asp-validation-for="ExtraActivity.Info" class="text-danger"></span>
+        </div>
+        <div class="form-group text-right">
+            <input asp-for="ExtraActivity.CurriculumId" value="@Model.Curriculum.Id" type="hidden" />
+            <button type="submit" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-ok"></i> Salvar</button>
+        </div>
+    </form>
+</div>

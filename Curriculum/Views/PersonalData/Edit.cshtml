@@ -1,0 +1,68 @@
+﻿@model MakeCurriculum.Models.PersonalData
+
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center">Editar Experiência Profissional</h4>
+        </div>
+        <div class="form-group">
+            <form asp-action="Edit">
+                <div class="modal-body">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="CurriculumId" />
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Nationality" class="control-label"></label>
+                        <input asp-for="Nationality" class="form-control" />
+                        <span asp-validation-for="Nationality" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Age" class="control-label"></label>
+                        <input asp-for="Age" class="form-control"/>
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CivilStatus" class="control-label"></label>
+                        <input asp-for="CivilStatus" class="form-control" />
+                        <span asp-validation-for="CivilStatus" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control"  />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Adress" class="control-label"></label>
+                        <input asp-for="Adress" class="form-control" />
+                        <span asp-validation-for="Adress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Site" class="control-label"></label>
+                        <textarea asp-for="Site" class="form-control"></textarea>
+                        <span asp-validation-for="Site" class="text-danger"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+                        <button type="submit" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-ok"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

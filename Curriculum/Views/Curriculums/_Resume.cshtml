@@ -1,0 +1,12 @@
+﻿@model MakeCurriculum.Models.Resume
+
+
+<div class="row">
+    <div class="col-md-10 col-sm-8 col-xs-6">
+        <p>@Model.Description</p>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6">
+        <a class="editResu" data-id="@Model.Id"><i class="glyphicon glyphicon-edit btn btn-warning btn-sm"></i></a>
+        <a class="deleteResu" data-id="@Model.Id"><i class="glyphicon glyphicon-trash btn btn-danger btn-sm"></i></a>
+    </div>
+</div>

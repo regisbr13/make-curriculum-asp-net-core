@@ -1,0 +1,50 @@
+﻿@model MakeCurriculum.Models.ViewModels.FormViewModel
+
+<div class="col-md-6 col-md-offset-3">
+    <form asp-action="Create" asp-controller="PersonalData" method="post">
+        <div class="form-group">
+            <label asp-for="PersonalData.Name" class="control-label"></label>
+            <input asp-for="PersonalData.Name" class="form-control" />
+            <span asp-validation-for="PersonalData.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalData.Nationality" class="control-label"></label>
+            <input asp-for="PersonalData.Nationality" class="form-control" />
+            <span asp-validation-for="PersonalData.Nationality" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalData.Age" class="control-label"></label>
+            <input asp-for="PersonalData.Age" class="form-control" value="" />
+            <span asp-validation-for="PersonalData.Age" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalData.CivilStatus" class="control-label"></label>
+            <input asp-for="PersonalData.CivilStatus" class="form-control"/>
+            <span asp-validation-for="PersonalData.CivilStatus" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalData.Email" class="control-label"></label>
+            <input asp-for="PersonalData.Email" class="form-control" />
+            <span asp-validation-for="PersonalData.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalData.Phone" class="control-label"></label>
+            <input asp-for="PersonalData.Phone" class="form-control" />
+            <span asp-validation-for="PersonalData.Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalData.Adress" class="control-label"></label>
+            <input asp-for="PersonalData.Adress" class="form-control" />
+            <span asp-validation-for="PersonalData.Adress" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalData.Site" class="control-label"></label>
+            <textarea asp-for="PersonalData.Site" class="form-control"></textarea>
+            <span asp-validation-for="PersonalData.Site" class="text-danger"></span>
+        </div>
+        <div class="form-group text-right">
+            <input asp-for="PersonalData.CurriculumId" value="@Model.Curriculum.Id" type="hidden" />
+            <button type="submit" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-ok"></i> Salvar</button>
+        </div>
+    </form>
+</div>

@@ -26,7 +26,7 @@ namespace MakeCurriculum.Service
         // Buscar por Id:
         public async Task<Curriculum> FindByIdAsync(int? id)
         {
-            return await _context.Curriculums.FirstOrDefaultAsync(t => t.Id == id);
+            return await _context.Curriculums.Include(c => c.PersonalData).Include(c => c.Resume).Include(c => c.Objectives).Include(c => c.Academics).ThenInclude(a => a.CoursesType).Include(c => c.ProfessionalExps).Include(c => c.ExtraActivities).Include(c => c.Languages).FirstOrDefaultAsync(t => t.Id == id);
         }
 
         // INSERIR:

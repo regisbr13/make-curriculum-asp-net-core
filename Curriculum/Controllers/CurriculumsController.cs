@@ -3,6 +3,7 @@ using MakeCurriculum.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Rotativa.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,20 +14,12 @@ namespace MakeCurriculum.Controllers
     public class CurriculumsController : Controller
     {
         private readonly CurriculumService _curriculumService;
-        private readonly ObjectiveService _objectiveService;
         private readonly CoursesTypeService _coursesService;
-        private readonly AcademicService _academicService;
-        private readonly ProfessionalExpService _expService;
-        private readonly LanguageService _languageService;
 
-        public CurriculumsController(CurriculumService curriculumService, ObjectiveService objectiveService, CoursesTypeService coursesService, AcademicService academicService, ProfessionalExpService expService, LanguageService languageService)
+        public CurriculumsController(CurriculumService curriculumService, CoursesTypeService coursesService)
         {
             _curriculumService = curriculumService;
-            _objectiveService = objectiveService;
             _coursesService = coursesService;
-            _academicService = academicService;
-            _expService = expService;
-            _languageService = languageService;
         }
 
         // GET:
@@ -48,10 +41,6 @@ namespace MakeCurriculum.Controllers
             {
                 return NotFound();
             }
-            obj.Objectives = await _objectiveService.FindByCurriculumId(id);
-            obj.Academics = await _academicService.FindByCurriculumId(id);
-            obj.ProfessionalExps = await _expService.FindByCurriculumId(id);
-            obj.Languages = await _languageService.FindByCurriculumId(id);
             ViewBag.items = new SelectList(await _coursesService.FindAllAsync(), "Id", "Type");
             return View(obj);
         }
@@ -135,6 +124,19 @@ namespace MakeCurriculum.Controllers
         {
             await _curriculumService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        // Gerar PDF:
+        public async Task<IActionResult> ViewPdf(int id)
+        {
+            var obj = await _curriculumService.FindByIdAsync(id);
+            return new ViewAsPdf("Pdf", obj) { FileName = obj.Name + ".pdf" };
+        }
+
+        public async Task<IActionResult> Pdf(int id)
+        {
+            var obj = await _curriculumService.FindByIdAsync(id);
+            return View(obj);
         }
     }
 }

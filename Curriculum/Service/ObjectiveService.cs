@@ -23,12 +23,6 @@ namespace MakeCurriculum.Service
             await _context.SaveChangesAsync();
         }
 
-        // Objetivos por Curriculum:
-        public async Task<List<Objective>> FindByCurriculumId(int? id)
-        {
-            return await _context.Objectives.Where(o => o.CurriculumId == id).ToListAsync();
-        }
-
         // REMOVER:
         public async Task RemoveAsync(int id)
         {

@@ -27,6 +27,9 @@ namespace MakeCurriculum.Map
 
             builder.HasMany(c => c.Languages).WithOne(c => c.Curriculum).OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasOne(c => c.PersonalData).WithOne(c => c.Curriculum).OnDelete(DeleteBehavior.Cascade);
+
+
             builder.ToTable("Curriculums");
         }
     }

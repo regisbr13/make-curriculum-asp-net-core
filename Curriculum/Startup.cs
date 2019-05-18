@@ -54,21 +54,18 @@ namespace MakeCurriculum
             });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             services.AddScoped<CurriculumService>();
-
             services.AddScoped<UserService>();
-
             services.AddScoped<LoginInformationService>();
-
             services.AddScoped<ObjectiveService>();
-
             services.AddScoped<AcademicService>();
-
             services.AddScoped<CoursesTypeService>();
-
             services.AddScoped<ProfessionalExpService>();
             services.AddScoped<LanguageService>();
+            services.AddScoped<PersonalDataService>();
+            services.AddScoped<ExtraActivityService>();
+            services.AddScoped<ResumeService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

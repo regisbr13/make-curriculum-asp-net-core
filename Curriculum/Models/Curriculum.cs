@@ -19,6 +19,8 @@ namespace MakeCurriculum.Models
 
         public User User { get; set; }
 
+        public PersonalData PersonalData { get; set; }
+
         public ICollection<Objective> Objectives { get; set; }
 
         public ICollection<Academic> Academics { get; set; }
@@ -26,5 +28,9 @@ namespace MakeCurriculum.Models
         public ICollection<ProfessionalExp> ProfessionalExps { get; set; }
 
         public ICollection<Language> Languages { get; set; }
+
+        public ICollection<ExtraActivity> ExtraActivities { get; set; }
+
+        public Resume Resume { get; set; }
     }
 }

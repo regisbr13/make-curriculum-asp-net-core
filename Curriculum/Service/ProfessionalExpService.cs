@@ -23,12 +23,6 @@ namespace MakeCurriculum.Service
             await _context.SaveChangesAsync();
         }
 
-        // Formações acadêmicas por Curriculum:
-        public async Task<List<ProfessionalExp>> FindByCurriculumId(int? id)
-        {
-            return await _context.ProfessionalExps.Where(o => o.CurriculumId == id).ToListAsync();
-        }
-
         // REMOVER:
         public async Task RemoveAsync(int id)
         {

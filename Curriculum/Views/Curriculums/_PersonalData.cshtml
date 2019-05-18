@@ -1,0 +1,15 @@
+﻿@model MakeCurriculum.Models.PersonalData
+
+
+<div class="row">
+    <div class="col-md-10 col-sm-8 col-xs-6">
+        <strong class="h4">@Model.Name</strong>
+        <p>@Model.Nationality, @Model.CivilStatus, @Model.Age anos</p>
+        <p>@Model.Phone - @Model.Email - @Model.Site</p>
+        <p>@Model.Site</p>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6">
+        <a class="editPers" data-id="@Model.Id"><i class="glyphicon glyphicon-edit btn btn-warning btn-sm"></i></a>
+        <a class="deletePers" data-id="@Model.Id"><i class="glyphicon glyphicon-trash btn btn-danger btn-sm"></i></a>
+    </div>
+</div>
