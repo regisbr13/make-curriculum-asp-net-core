@@ -77,6 +77,17 @@ namespace MakeCurriculum.Service
             return await _context.Users.AnyAsync(u => u.Email == user.Email);
         }
 
+        // Email não cadastrado:
+        public async Task<bool> HasAnyEmail(LoginViewModel viewModel)
+        {
+            return await _context.Users.AnyAsync(u => u.Email == viewModel.Email);
+        }
+
+        public async Task<bool> HasAnyPassword(LoginViewModel viewModel)
+        {
+            return await _context.Users.AnyAsync(u => u.Password == viewModel.Password);
+        }
+
         // ID DO USUARIO:
         public int UserId(LoginViewModel viewModel)
         {

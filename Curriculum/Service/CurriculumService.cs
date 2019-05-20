@@ -18,9 +18,9 @@ namespace MakeCurriculum.Service
         }
 
         // Listar todos:
-        public async Task<List<Curriculum>> FindAllAsync()
+        public async Task<List<Curriculum>> FindAllAsync(int? id)
         {
-            return await _context.Curriculums.ToListAsync();
+            return await _context.Curriculums.Where(c => c.UserId == id).ToListAsync();
         }
 
         // Buscar por Id:
@@ -62,6 +62,14 @@ namespace MakeCurriculum.Service
             _context.Remove(obj);
             await _context.SaveChangesAsync();
 
+        }
+
+        // Currículo já cadastrado:
+        public async Task<bool> HasName(Curriculum obj, int userId)
+        {
+            if (await _context.Curriculums.Where(c => c.UserId == userId).AnyAsync(x => x.Name.ToUpper() == obj.Name.ToUpper()))         
+                return true;
+            return false;
         }
     }
 }

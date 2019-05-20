@@ -57,9 +57,9 @@ namespace MakeCurriculum.Service
             }
         }
 
-        public async Task<bool> NameExists(string name)
+        public async Task<bool> NameExists(string name, int id)
         {
-            if (await _context.Languages.AnyAsync(x => x.Name.ToUpper() == name.ToUpper()))     
+            if (await _context.Languages.Where(l => l.CurriculumId == id).AnyAsync(x => x.Name.ToUpper() == name.ToUpper()))     
                 return true;
             return false;
         }

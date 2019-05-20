@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace MakeCurriculum.Models
     {
         public int Id { get; set; }
 
+        [Remote("CurriculumExists", "Curriculums")]
         [Display(Name ="Nome do currículo")]
         [Required(ErrorMessage ="campo obrigatório")]
         [StringLength(50, ErrorMessage ="use até {1} caracteres")]

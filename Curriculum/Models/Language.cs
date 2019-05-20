@@ -10,7 +10,6 @@ namespace MakeCurriculum.Models
         [Display(Name="Nome")]
         [Required(ErrorMessage ="campo obrigatório")]
         [StringLength(15, ErrorMessage ="use até {1} caracteres")]
-        [Remote("LanguageExist", "Languages")]
         public string Name { get; set; }
 
         [Display(Name = "Nível")]

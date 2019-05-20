@@ -90,12 +90,5 @@ namespace MakeCurriculum.Controllers
             }
             return View(obj);
         }
-
-        public async Task<JsonResult> LanguageExist([Bind(Prefix = "Language")] Language obj)
-        {
-            if (await _languageService.NameExists(obj.Name))
-                return Json("idioma já cadastrado");
-            return Json(true);
-        }
     }
 }

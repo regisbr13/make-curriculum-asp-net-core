@@ -14,21 +14,26 @@
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Logar" />
-                <a asp-action="Register" class="btn btn-link">Registrar</a>
+            <div class="col-md-3 col-sm-3 col-xs-3" style="padding-left:0">
+                <input type="submit" class="btn btn-primary" value="Entrar" />
             </div>
         </form>
+        <div class="col-md-9 col-sm-9 col-xs-9" style="padding-left:0">
+            <form asp-action="Login">
+                <input asp-for="Email" type="hidden" value="visitante@visitante.com" class="form-control" />
+                <input asp-for="Password" type="hidden" value="12345" class="form-control" />
+                <button type="submit" class="btn btn-link">Entrar como visitante</button>
+                <a asp-action="Register" class="btn btn-link">Registrar</a>
+            </form>
+        </div>
     </div>
 </div>
 
-@section Scripts {	
+@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -106,8 +106,22 @@ namespace MakeCurriculum.Controllers
         public async Task<JsonResult> UserExist(User user)
         {
             if (await _userService.HasAnyEmail(user))
-                return Json("Email já cadastrado");
+                return Json("email já cadastrado");
             return Json(true);
+        }
+
+        public async Task<JsonResult> EmailError(LoginViewModel viewModel)
+        {
+            if (await _userService.HasAnyEmail(viewModel))
+                return Json(true);
+            return Json("email ou senha inválidos");
+        }
+
+        public async Task<JsonResult> PasswordError(LoginViewModel viewModel)
+        {
+            if (await _userService.HasAnyPassword(viewModel))
+                return Json(true);
+            return Json("email ou senha inválidos");
         }
     }
 }

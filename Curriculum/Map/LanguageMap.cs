@@ -11,7 +11,6 @@ namespace MakeCurriculum.Map
             builder.HasKey(l => l.Id);
 
             builder.Property(l => l.Name).IsRequired().HasMaxLength(50);
-            builder.HasIndex(l => l.Name).IsUnique();
 
             builder.Property(l => l.Level).IsRequired().HasMaxLength(50);
 

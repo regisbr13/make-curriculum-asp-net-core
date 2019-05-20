@@ -107,7 +107,7 @@ namespace MakeCurriculum
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Users}/{action=Register}/{id?}");
+                    template: "{controller=Users}/{action=Login}/{id?}");
             });
         }
     }

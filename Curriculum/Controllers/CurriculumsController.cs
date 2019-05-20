@@ -1,5 +1,6 @@
 ﻿using MakeCurriculum.Models;
 using MakeCurriculum.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,12 +24,19 @@ namespace MakeCurriculum.Controllers
         }
 
         // GET:
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _curriculumService.FindAllAsync());
+            if (HttpContext.Session.GetInt32("UserId").HasValue)
+            {
+                int id = HttpContext.Session.GetInt32("UserId").Value;
+                return View(await _curriculumService.FindAllAsync(id));
+            }
+            return View("Error");
         }
 
         // GET:
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +54,7 @@ namespace MakeCurriculum.Controllers
         }
 
         // CREATE GET:
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -56,7 +65,7 @@ namespace MakeCurriculum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Curriculum obj)
         {
-            obj.UserId = int.Parse(HttpContext.Session.GetInt32("UserId").ToString());
+            obj.UserId = HttpContext.Session.GetInt32("UserId").Value;
             if (ModelState.IsValid)
             {
                 await _curriculumService.InsertAsync(obj);
@@ -66,6 +75,7 @@ namespace MakeCurriculum.Controllers
         }
 
         // EDIT GET:
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,7 +96,7 @@ namespace MakeCurriculum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Curriculum obj)
         {
-            obj.UserId = int.Parse(HttpContext.Session.GetInt32("UserId").ToString());
+            obj.UserId = HttpContext.Session.GetInt32("UserId").Value;
             if (id != obj.Id)
             {
                 return NotFound();
@@ -101,6 +111,7 @@ namespace MakeCurriculum.Controllers
         }
 
         // DELETE GET:
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -127,16 +138,26 @@ namespace MakeCurriculum.Controllers
         }
 
         // Gerar PDF:
+        [Authorize]
         public async Task<IActionResult> ViewPdf(int id)
         {
             var obj = await _curriculumService.FindByIdAsync(id);
             return new ViewAsPdf("Pdf", obj) { FileName = obj.Name + ".pdf" };
         }
 
+        [Authorize]
         public async Task<IActionResult> Pdf(int id)
         {
             var obj = await _curriculumService.FindByIdAsync(id);
             return View(obj);
+        }
+
+        public async Task<JsonResult> CurriculumExists(Curriculum obj)
+        {
+            int userId = HttpContext.Session.GetInt32("UserId").Value;
+            if (await _curriculumService.HasName(obj, userId))          
+                return Json("currículo já cadastrado");
+            return Json(true);
         }
     }
 }

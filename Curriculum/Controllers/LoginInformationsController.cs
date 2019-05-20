@@ -1,5 +1,6 @@
 ﻿using MakeCurriculum.Data;
 using MakeCurriculum.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,14 +21,20 @@ namespace MakeCurriculum.Controllers
         }
 
         // Listagem das informações de login por Id do usuário
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var userId = HttpContext.Session.GetInt32("UserId");
-            var list = await _loginService.LoginInformationByUserId(userId);
-            return View(list);
+            if (HttpContext.Session.GetInt32("UserId").HasValue)
+            {
+                var userId = HttpContext.Session.GetInt32("UserId");
+                var list = await _loginService.LoginInformationByUserId(userId);
+                return View(list);
+            }
+            return View("Error");
         }
 
         // Download das informações de login em arquivo CSV
+        [Authorize]
         public async Task<IActionResult> DataDownload()
         {
             var userId = HttpContext.Session.GetInt32("UserId");
