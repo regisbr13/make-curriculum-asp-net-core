@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Rotativa.AspNetCore;
+using RotativaHQ.AspNetCore;
 
 namespace MakeCurriculum
 {
@@ -34,7 +34,7 @@ namespace MakeCurriculum
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
@@ -94,14 +94,15 @@ namespace MakeCurriculum
                 app.UseHsts();
             }
 
+            RotativaHqConfiguration.SetRotativaHqApiKey("24739c913e4f43728b9e4a7605c087af");
+            RotativaHqConfiguration.SetRotativaHqUrl("https://useast.rotativahq.com");
+
             app.UseRequestLocalization(localOptions);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseSession();
-
-            RotativaConfiguration.Setup(env);
 
             app.UseMvc(routes =>
             {

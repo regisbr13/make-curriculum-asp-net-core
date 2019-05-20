@@ -8,93 +8,118 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+@if (Model.PersonalData != null)
+{
+    <div class="col-xs-6 h2 text-primary text-left text">
+        <p>@Model.PersonalData.Name</p>
+    </div>
+    <div class="col-xs-6 text-right h6">
+        <p class="bold">@Model.PersonalData.Nationality, @Model.PersonalData.CivilStatus, @Model.PersonalData.Age anos</p>
+        <p class="bold">@Model.PersonalData.Adress</p>
+        <p class="bold">@Model.PersonalData.Phone</p>
+        <p class="bold">@Model.PersonalData.Email</p>
+        <p class="bold">@Model.PersonalData.Site</p>
+        <hr />
+    </div>
+}
 
-<div class="col-xs-6 h2 text-primary text-left text">
-    <p>@Model.PersonalData.Name</p>
-</div>
-<div class="col-xs-6 text-right h6">
-    <p class="bold">@Model.PersonalData.Nationality, @Model.PersonalData.CivilStatus, @Model.PersonalData.Age anos</p>
-    <p class="bold">@Model.PersonalData.Adress</p>
-    <p class="bold">@Model.PersonalData.Phone</p>
-    <p class="bold">@Model.PersonalData.Email</p>
-    <p class="bold">@Model.PersonalData.Site</p>
-    <hr />
-</div>
+@if (Model.Resume != null)
+{
+    <div class="col-xs-12 text-primary h4">
+        <p><em>Resumo</em></p>
+        <hr />
+    </div>
+    <div class="col-xs-12 text-justify">
+        <p class="font">@Model.Resume.Description</p>
+    </div>
 
-<div class="col-xs-12 text-primary h4">
-    <p><em>Resumo</em></p>
-    <hr />
-</div>
-<div class="col-xs-12 text-justify">
-    <p class="font">@Model.Resume.Description</p>
-</div>
+    <br />
+}
 
-<br />
+@if (Model.Objectives != null)
+{
+    <div class="col-xs-12 text-primary h4">
+        <p><em>Objetivo</em></p>
+        <hr />
+    </div>
+    <div class="col-xs-12 text-justify">
+        @foreach (var item in Model.Objectives)
+        {
+            <p class="font">@item.Description</p>
+        }
+    </div>
 
-<div class="col-xs-12 text-primary h4">
-    <p><em>Objetivo</em></p>
-    <hr />
-</div>
-<div class="col-xs-12 text-justify">
-    @foreach (var item in Model.Objectives)
-    {
-        <p class="font">@item.Description</p>
-    }
-</div>
+    <br />
+}
 
-<br />
+@if (Model.Academics != null)
+{
+    <div class="col-xs-12 text-primary h4">
+        <p><em>Formação Acadêmica</em></p>
+        <hr />
+    </div>
+    <div class="col-xs-12 text-justify">
+        @foreach (var item in Model.Academics)
+        {
+            <p class="font"><strong>@item.CoursesType.Type em @item.CourseName</strong></p>
+            <p class="font">@item.Institution | @item.StartYear a @item.EndYear</p>
+        }
+    </div>
 
-<div class="col-xs-12 text-primary h4">
-    <p><em>Formação Acadêmica</em></p>
-    <hr />
-</div>
-<div class="col-xs-12 text-justify">
-    @foreach (var item in Model.Academics)
-    {
-        <p class="font"><strong>@item.CoursesType.Type em @item.CourseName</strong></p>
-        <p class="font">@item.Institution | @item.StartYear a @item.EndYear</p>
-    }
-</div>
+    <br />
+}
 
-<br />
 
-<div class="col-xs-12 text-primary h4">
-    <p><em>Experiências Profissionais</em></p>
-    <hr />
-</div>
-<div class="col-xs-12 text-justify">
-    @foreach (var item in Model.ProfessionalExps)
-    {
-        <p class="font"><strong>@item.Company</strong> (@item.StartYear a @item.EndYear)</p>
-        <p class="font"><i>@item.Role</i></p>
-        <p class="font">@item.Activities</p>
-    }
-</div>
 
-<div class="col-xs-12 text-primary h4">
-    <p><em>Idiomas</em></p>
-    <hr />
-</div>
-<div class="col-xs-12 text-justify">
-    @foreach (var item in Model.Languages)
-    {
-        <p class="font"><strong>@item.Name:</strong> @item.Level</p>
-    }
-</div>
+@if (Model.ProfessionalExps != null)
+{
+    <div class="col-xs-12 text-primary h4">
+        <p><em>Experiências Profissionais</em></p>
+        <hr />
+    </div>
+    <div class="col-xs-12 text-justify">
+        @foreach (var item in Model.ProfessionalExps)
+        {
+            <p class="font"><strong>@item.Company</strong> (@item.StartYear a @item.EndYear)</p>
+            <p class="font"><i>@item.Role</i></p>
+            <p class="font">@item.Activities</p>
+        }
+    </div>
+}
 
-<br />
 
-<div class="col-xs-12 text-primary h4">
-    <p><em>Atividades Extracurrirulares</em></p>
-    <hr />
-</div>
-<div class="col-xs-12 text-justify">
-    @foreach (var item in Model.ExtraActivities)
-    {
-        <p class="font"><strong>@item.CourseName</strong></p>
-        <p class="font">@item.Info</p>
-    }
-</div>
+@if (Model.Languages != null)
+{
+    <div class="col-xs-12 text-primary h4">
+        <p><em>Idiomas</em></p>
+        <hr />
+    </div>
+    <div class="col-xs-12 text-justify">
+        @foreach (var item in Model.Languages)
+        {
+            <p class="font"><strong>@item.Name:</strong> @item.Level</p>
+        }
+    </div>
+
+    <br />
+}
+
+
+@if (Model.ExtraActivities != null)
+{
+    <div class="col-xs-12 text-primary h4">
+        <p><em>Atividades Extracurrirulares</em></p>
+        <hr />
+    </div>
+    <div class="col-xs-12 text-justify">
+        @foreach (var item in Model.ExtraActivities)
+        {
+            <p class="font"><strong>@item.CourseName</strong></p>
+            <p class="font">@item.Info</p>
+        }
+    </div>
+}
+
 
 <style>
     .bold {
@@ -106,14 +131,14 @@
     }
 
     hr {
-        margin-top:10px;
-        margin-bottom:5px;
+        margin-top: 10px;
+        margin-bottom: 5px;
         background-color: black;
         height: 2px;
     }
 
     .font {
-        margin-top:0;
-        font-size:16px;
+        margin-top: 0;
+        font-size: 16px;
     }
 </style>

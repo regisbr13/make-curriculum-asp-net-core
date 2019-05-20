@@ -24,9 +24,9 @@ namespace MakeCurriculum.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetInt32("UserId").HasValue)
+            if (HttpContext.Session.GetString("UserId") != null)
             {
-                var userId = HttpContext.Session.GetInt32("UserId");
+                var userId = int.Parse(HttpContext.Session.GetString("UserId"));
                 var list = await _loginService.LoginInformationByUserId(userId);
                 return View(list);
             }
@@ -37,7 +37,7 @@ namespace MakeCurriculum.Controllers
         [Authorize]
         public async Task<IActionResult> DataDownload()
         {
-            var userId = HttpContext.Session.GetInt32("UserId");
+            var userId = int.Parse(HttpContext.Session.GetString("UserId"));
             var list = await _loginService.LoginInformationByUserId(userId);
 
             StringBuilder sb = new StringBuilder();

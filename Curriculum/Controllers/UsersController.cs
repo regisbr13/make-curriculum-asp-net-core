@@ -45,7 +45,7 @@ namespace MakeCurriculum.Controllers
                 };
                 await _loginService.InsertAsync(info);
 
-                HttpContext.Session.SetInt32("UserId", obj.Id);
+                HttpContext.Session.SetString("UserId", obj.Id.ToString());
                 var claims = new List<Claim> { new Claim(ClaimTypes.Email, obj.Email)};
 
                 var userIdentity = new ClaimsIdentity(claims, "login");
@@ -81,7 +81,7 @@ namespace MakeCurriculum.Controllers
                 };
                 await _loginService.InsertAsync(info);
 
-                HttpContext.Session.SetInt32("UserId", id);
+                HttpContext.Session.SetString("UserId", id.ToString());
                 var claims = new List<Claim> { new Claim(ClaimTypes.Email, viewModel.Email) };
 
                 var userIdentity = new ClaimsIdentity(claims, "login");

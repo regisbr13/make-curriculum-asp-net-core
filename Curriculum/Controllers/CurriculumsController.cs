@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Rotativa.AspNetCore;
+using RotativaHQ.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +27,12 @@ namespace MakeCurriculum.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetInt32("UserId").HasValue)
+            if (HttpContext.Session.GetString("UserId") != null)
             {
-                int id = HttpContext.Session.GetInt32("UserId").Value;
+                int id = int.Parse(HttpContext.Session.GetString("UserId"));
                 return View(await _curriculumService.FindAllAsync(id));
             }
+            ViewBag.id = HttpContext.Session.GetString("UserId");
             return View("Error");
         }
 
@@ -65,7 +66,7 @@ namespace MakeCurriculum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Curriculum obj)
         {
-            obj.UserId = HttpContext.Session.GetInt32("UserId").Value;
+            obj.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
             if (ModelState.IsValid)
             {
                 await _curriculumService.InsertAsync(obj);
@@ -96,7 +97,7 @@ namespace MakeCurriculum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Curriculum obj)
         {
-            obj.UserId = HttpContext.Session.GetInt32("UserId").Value;
+            obj.UserId = int.Parse(HttpContext.Session.GetString("UserId"));
             if (id != obj.Id)
             {
                 return NotFound();
@@ -139,10 +140,10 @@ namespace MakeCurriculum.Controllers
 
         // Gerar PDF:
         [Authorize]
-        public async Task<IActionResult> ViewPdf(int id)
+        public async Task<IActionResult> ViewPdf(int? id)
         {
             var obj = await _curriculumService.FindByIdAsync(id);
-            return new ViewAsPdf("Pdf", obj) { FileName = obj.Name + ".pdf" };
+            return new ViewAsPdf("Pdf", obj) { FileName = "Curriculo.pdf" };
         }
 
         [Authorize]
@@ -154,7 +155,7 @@ namespace MakeCurriculum.Controllers
 
         public async Task<JsonResult> CurriculumExists(Curriculum obj)
         {
-            int userId = HttpContext.Session.GetInt32("UserId").Value;
+            int userId = int.Parse(HttpContext.Session.GetString("UserId"));
             if (await _curriculumService.HasName(obj, userId))          
                 return Json("currículo já cadastrado");
             return Json(true);
