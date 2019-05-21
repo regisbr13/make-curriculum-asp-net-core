@@ -25,7 +25,7 @@ namespace MakeCurriculum.Service
 
         public async Task<List<LoginInformation>> LoginInformationByUserId(int? id)
         {
-            return await _context.LoginInformations.Include(li => li.User).Where(li => li.UserId == id).ToListAsync();
+            return await _context.LoginInformations.Include(li => li.User).Where(li => li.UserId == id).OrderByDescending(li => li.LoginDate).ToListAsync();
         }
     }
 }

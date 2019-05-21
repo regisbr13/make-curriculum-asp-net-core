@@ -1,8 +1,9 @@
 ﻿@model ICollection<MakeCurriculum.Models.Objective>
 
-    <ul>
-        @foreach (var item in Model)
-        {
+<ul>
+    @foreach (var item in Model)
+    {
+        <div class="row">
             <li class="h4 list-group">
                 <div class="col-md-10 col-sm-8 col-xs-6">
                     @item.Description
@@ -11,7 +12,8 @@
                     <a class="editObj" data-id="@item.Id"><i class="glyphicon glyphicon-edit btn btn-warning btn-sm"></i></a>
                     <a class="deleteObj" data-id="@item.Id"><i class="glyphicon glyphicon-trash btn btn-danger btn-sm"></i></a>
                 </div>
-                <hr />
             </li>
-        }
-    </ul>
+        </div>
+        <hr />
+    }
+</ul>

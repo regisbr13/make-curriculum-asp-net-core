@@ -1,4 +1,6 @@
-﻿@model IEnumerable<MakeCurriculum.Models.LoginInformation>
+﻿@model X.PagedList.IPagedList<MakeCurriculum.Models.LoginInformation>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Common
 
 @{
     ViewData["Title"] = "Informações de login";
@@ -21,12 +23,18 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.Ip)</td>
-            <td>@item.LoginDate.ToShortDateString()</td>
-            <td>@item.LoginDate.ToShortTimeString()</td>
-        </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Ip)</td>
+                <td>@TimeZoneInfo.ConvertTime(item.LoginDate, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")).ToShortDateString()</td>
+                <td>@TimeZoneInfo.ConvertTime(item.LoginDate, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")).ToShortTimeString()</td>
+            </tr>
         }
     </tbody>
 </table>
 
+@Html.PagedListPager(Model, page => Url.Action("Index", "LoginInformations", new { page }), new PagedListRenderOptionsBase
+{
+ContainerDivClasses = new string[] { "text-center" },
+LiElementClasses = new string[] { "page-item" },
+PageClasses = new string[] { "page-link" }
+})

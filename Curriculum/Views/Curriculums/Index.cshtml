@@ -48,7 +48,7 @@
             $(function () {
                 $(".edit").click(function () {
                     var id = $(this).attr("data-id");
-                    $("#modal").load("Edit?Id=" + id, function () {
+                    $("#modal").load("/Curriculums/Edit?Id=" + id, function () {
                         $("#modal").modal();
                     })
                 })
@@ -56,7 +56,7 @@
             $(function () {
                 $(".delete").click(function () {
                     var id = $(this).attr("data-id");
-                    $("#modal").load("Delete?Id=" + id, function () {
+                    $("#modal").load("/Curriculums/Delete?Id=" + id, function () {
                         $("#modal").modal();
                     })
                 })

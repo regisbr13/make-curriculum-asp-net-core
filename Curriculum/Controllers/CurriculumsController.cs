@@ -25,6 +25,7 @@ namespace MakeCurriculum.Controllers
 
         // GET:
         [Authorize]
+        [HttpGet("/Curriculos")]
         public async Task<IActionResult> Index()
         {
             if (HttpContext.Session.GetString("UserId") != null)
@@ -38,6 +39,7 @@ namespace MakeCurriculum.Controllers
 
         // GET:
         [Authorize]
+        [HttpGet("/Curriculos/Detalhes")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

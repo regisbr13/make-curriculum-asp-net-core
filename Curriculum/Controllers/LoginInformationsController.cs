@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace MakeCurriculum.Controllers
 {
@@ -22,13 +23,16 @@ namespace MakeCurriculum.Controllers
 
         // Listagem das informações de login por Id do usuário
         [Authorize]
-        public async Task<IActionResult> Index()
+        [HttpGet("/Informacoes-de-Login")]
+        public async Task<IActionResult> Index(int? page)
         {
             if (HttpContext.Session.GetString("UserId") != null)
             {
+                const int pageItems = 10;
+                int pageNumber = (page ?? 1);
                 var userId = int.Parse(HttpContext.Session.GetString("UserId"));
                 var list = await _loginService.LoginInformationByUserId(userId);
-                return View(list);
+                return View(await list.ToPagedListAsync(pageNumber, pageItems));
             }
             return View("Error");
         }

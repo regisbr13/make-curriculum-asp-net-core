@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,7 +30,7 @@
                 <a asp-area="" asp-controller="Curriculums" asp-action="Index" class="navbar-brand">Montar currículo</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right nav-pills">
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Users" asp-action="Register">Registro</a></li>
@@ -36,8 +39,15 @@
                     else
                     {
                         <li><a asp-controller="Curriculums" asp-action="Index">Meus currículos</a></li>
-                        <li><a asp-controller="LoginInformations" asp-action="Index">Minhas informações</a></li>
-                        <li><a asp-controller="Users" asp-action="Logout">Sair</a></li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                @HttpContextAccessor.HttpContext.Session.GetString("Email") <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu navbar-link">
+                                <li><a asp-controller="LoginInformations" asp-action="Index">Minhas informações</a></li>
+                                <li><a asp-controller="Users" asp-action="Logout">Sair</a></li>
+                            </ul>
+                        </li>
                     }
                 </ul>
             </div>
@@ -47,9 +57,23 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2019 - Curriculum</p>
-        </footer>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <div class="row text-center">
+                    <div class="col-md-4 btn">
+                        &copy; 2019 - Developed by Regis
+                    </div>
+                    <div class="col-md-4">
+                        <a href="https://github.com/regisbr13/make-curriculum-asp-net-core" target="_blank" class="btn btn-link">Código do Projeto</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="https://meuportfolio.azurewebsites.net/" target="_blank" class="btn btn-link">Mais projetos</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
 
     <environment include="Development">

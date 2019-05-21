@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -24,13 +23,14 @@ namespace MakeCurriculum.Controllers
         }
 
         // CREATE GET:
+        [HttpGet("/Registrar")]
         public IActionResult Register()
         {
             return View();
         }
 
         // CREATE POST: 
-        [HttpPost]
+        [HttpPost("/Registrar")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(User obj)
         {
@@ -44,7 +44,6 @@ namespace MakeCurriculum.Controllers
                     LoginDate = DateTime.Now
                 };
                 await _loginService.InsertAsync(info);
-
                 HttpContext.Session.SetString("UserId", obj.Id.ToString());
                 var claims = new List<Claim> { new Claim(ClaimTypes.Email, obj.Email)};
 
@@ -81,6 +80,7 @@ namespace MakeCurriculum.Controllers
                 };
                 await _loginService.InsertAsync(info);
 
+                HttpContext.Session.SetString("Email", viewModel.Email);
                 HttpContext.Session.SetString("UserId", id.ToString());
                 var claims = new List<Claim> { new Claim(ClaimTypes.Email, viewModel.Email) };
 
