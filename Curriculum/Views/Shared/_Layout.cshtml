@@ -33,8 +33,8 @@
                 <ul class="nav navbar-nav navbar-right nav-pills">
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-controller="Users" asp-action="Register">Registro</a></li>
-                        <li><a asp-controller="Users" asp-action="Login">Login</a></li>
+                        <li><a asp-controller="Users" asp-action="Register"><span class="glyphicon glyphicon-user"></span> Registro</a></li>
+                        <li><a asp-controller="Users" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     }
                     else
                     {
@@ -45,7 +45,7 @@
                             </a>
                             <ul class="dropdown-menu navbar-link">
                                 <li><a asp-controller="LoginInformations" asp-action="Index">Minhas informações</a></li>
-                                <li><a asp-controller="Users" asp-action="Logout">Sair</a></li>
+                                <li><a asp-controller="Users" asp-action="Logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
                             </ul>
                         </li>
                     }
